@@ -1,0 +1,148 @@
+1. src foler: this is the main folder, where our source code will be placed. whatever the code you are going to write, your entire code for the application must be inside this folder. 
+
+    a. inside src foler there's app folder that you will get by default. And it's actually app-module, module is the building block of angular application. 
+    Your angular application is based on module. And in your module, you have components, templates, services, directives and interfaces.  
+    
+    You can have your own module according to your needs, for example, create a recruiting module. Then the name of the file will be recruiting-routing.module.ts, 
+    recruiting.component.html, recruiting.component.scss etc..
+
+        i. app-routing.module.ts: is responsible to handle the routing work. it will define the routes, switch templates, handle the url requests.
+        ii. app.component.html: it's like a view in mvc, here it's working as a view template(the page you will actually see), is responsible to handle the html code. 
+        iii. app.component.scss: is responsible to hande the style sheet, if you work with any css code, you can put in this file.
+        iv. app.component.spec.ts: is responsible to handle test cases, for example, unit tests, ts represents typescript. And spec means you are going to write test cases here. 
+        v. app.component.ts: is responsible to handle coding logic, using typescript. typescript is a superset of javascript which is similar to c# language, 
+            but browser can't execute typescript, so whenever you use ng serve in terminal, your angular converts typescript to javascript so your browser 
+            will understand. This process is called transfile process. 
+        vi. app.module.ts: is responsible to manage the setting related to app module. 
+
+    !!!asked in interview: what is the default module in angular? --app module
+
+2. assets : you can put image in this file
+3. favicon: display the icon when open the browser
+4. index.html: main file, all your component.html files are displayed in index.html file. 
+5. main.ts: it's like program.cs
+6. styles.scss: you can write any css code and relate it to index.html 
+7. .editconfig: relate to configuration, 
+8. angular.json: all settings are there
+9. package.json: packages installed are listed here
+
+
+
+When we need to add module, how? -> in command prompt writes:
+ng generate module <module-name>
+ng g m <module-name>
+ng stands for angular
+
+Then this module will be created in src->app->recruiting, because app module is the main/root module, every module you create will be in app module
+
+inside a xxx.module.ts file, you have:
+    module class with export keyword, only when you export it you can import the files. 
+
+    ng module decorator: it's written in @ symbol. This decorator has properties. 
+        - declarations [] : register components related to the module
+        - bootstrap [] : place the default component to start
+        - imports [] : used to import other modules (can be predefined or user-defined)
+        - exports [] : used to export component of the module, whatever component you put here, it must belong to the same module, and it's exported from one module to another module
+        - providers [] : is used to do the injection of the services (it's like the dependency injection in .net), if you want to inject a service within the application level, you 
+            can inject it here. This providers can also be used in xxx.component.ts, inside the @Component, but the service will be limited to component. If it's injected in module, 
+            it means this service can be used in the same module. if that module has ten components, then you can use the same service inside these 10 components. if share data, you 
+            use services, services are used to share data from one component to another. Service in angular is singleton instance.
+    (component is like controller)
+
+
+JIT vs AOT
+
+
+
+Components : is used to handle the logic, it is a very small functionality where you will handle the logic. 
+    A component will have a class, and a component decorator on it. A component will return you a template, the template has a url.
+    We use @ symbol. A component decoration has following properties:
+        selector : is used to access the html code(Template) associated with the component
+        TemplateURL : used to define the url of the html component template
+        StyleURLs [] : give the path to the style sheets
+        Providers [] : is used to inject the services in the component
+
+        ng generate component <component-name>
+        ng g c <component-name> (eg. employee-list)
+        this command is going to generate:
+            - employee-list.component.html: template
+            - employee-list.component.ts: component
+            - employee-list.component.scss: stylesheet
+            - employee-list.component.spec.ts: spec file for unit testing
+            - update src/app/app.module.ts: register component in default module file(interview question)
+
+
+        !!!life cycle hook of angular page: difference of ngOnInit and constructor of a component(interview question)
+
+    
+
+Databinding:
+- one way binding: data can be transferred, or flow in one direction
+    -- send data from component to template, we use property binding to do this, be done in []
+    -- send data from component to template using interpolation
+    -- send data from template to component, we use event binding to do this, be done in ()
+- two way binding: data can be sent from component to template and vice versa(like give it a round back)
+    -- here we use ng module in Module.ts then import formsModule inside the same module
+    -- [(ngModel)], this type of writing is know as banana in a box
+
+
+Directives: (interview questions)
+    - structural directives : used to define html sturcture in the template. you can show or hide the html element using the structure directive. They are written with the *, 
+    and are used to manipulate DOM elements
+        eg. *ngIf, *ngFor, *ngSwitch
+
+        while working with *ngIf to use else statement we need to use ng-template at the same time to render the content of else.
+
+        (interview question) Difference of pipe(uppercase, lowercase) and directives 
+
+    - attribute directives
+    - component directives
+
+
+Custome Pipes: 
+    - need to create Classes 
+     -- pipe decorator
+     -- pipeTransform (transform)
+        --- tranform method must return something.
+
+    to create the custome pipe:
+    ng generate pipe <pipe-name>
+    ng g p <pipe-name>
+    (create a pipe folder in app folder)
+
+
+
+home => http://localhost:4200/home
+about us => http://localhost:4200/aboutus 
+employeelisg => http://localhost:4200/employees-list 
+editemployee => http://localhost:4200/employees/edit/{id} -> edit/:id
+
+how to define the above urls? => in app-routing.module.ts
+
+wide path, wide card routing, use **
+
+
+fulltime => http://localhost:4200/employee/fulltime 
+parttime => http://localhost:4200/employee/parttime 
+
+
+!!!try to understand the difference between dynamic url vs querystring
+- when you pass a question mark and something after the url, that's querystring
+    -- http://localhost:4200/home?name="demo" 
+Dynamic url: A dynamic URL is a URL that contains variable segments, which can be used to pass data to a web application. 
+            These variable segments are usually denoted by placeholders, such as :id or :name. When a user navigates to a dynamic URL, 
+            the variable segment is replaced with a specific value, which is then used by the web application to display the appropriate content 
+            or perform a specific action.
+
+QueryString: a query string is a set of key-value pairs that are appended to the end of a URL. These key-value pairs are separated by the & character 
+            and are denoted by the key=value syntax. Query strings are typically used to provide additional information or parameters to a web application, 
+            such as search terms or filter criteria.
+
+
+
+ActivatedRoute: it contains information about the current route's URL, parameters, data, and other route-specific details. 
+                When a user navigates to a different route within an Angular application, the ActivatedRoute provides information about the new route 
+                that was activated, including any parameters or data that are associated with the route.
+
+
+route guard: when you want to tell who can access the page, if someone is using an account

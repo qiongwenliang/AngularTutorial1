@@ -1,0 +1,18 @@
+<hr/>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    <tr *ngFor="let e of employee">
+        <td>{{e.id}}</td>
+        <td>{{e.name}}</td>
+        <td>{{e.age}}</td>
+        <td>
+            <a [routerLink]="['/employee-edit', e.id]">Edit</a> <!--this is where you want to display an id in the url-->
+            |
+            <a [routerLink]="['/employee-edit', e.id, e.age]">Edit with two parameters</a>
+        </td>
+    </tr>
+</table>

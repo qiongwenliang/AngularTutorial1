@@ -1,0 +1,128 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="'/home'">Home <span class="sr-only"></span></a>
+        <!--router link is using property binding, and /home here is a property value-->
+        <!--the href is the static value, here [routerLink] is dynamic value-->
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<hr/>
+
+<h1>First Angular tutorial</h1>
+
+<span>
+  {{companName}}
+</span>
+
+<br/>
+
+<span>
+  Id = {{employee.id}}<br/>
+  Name = {{employee.name}} <br/>
+  Age = {{employee.age}}<br/>
+  Salary = {{employee.salary}}
+</span>
+<!--binding with interpolation-->
+
+
+<br/>
+
+<input type="text" [value]="firstName" class="form-control" placeholder="Enter First Name"/>
+<br/>
+<input type="text" [value]="'My Demo Value'" class="form-control" placeholder="Enter Second90 Name"/>
+<!--binding with property-->
+
+<br/> 
+<input type="button" value="Test Button" class="btn btn-primary"/>
+
+
+
+<!--event binding and two way binding example-->
+<div class="contianer">
+  <div class="row">
+    <div class="col-12 my-3">
+      <input type="text" [value]="firstNumber" [(ngModel)]="firstNumber" placeholder="Entrer First Number" class="form-control"/>
+      <!--that ngModule is two way binding, so the number entered in html page under firstNumber will send back to component-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <input type="text" [value]="secondNumber" [(ngModel)]="secondNumber" placeholder="Enter Second Number" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 my-3">
+      <input type="button" value="Addition" class="btn btn-primary"(click)="addNumbers()"/>
+      <!--click in parentesis in event binding-->
+    </div>
+  </div>
+  Sum = {{sum}}
+</div>
+
+
+<!--exmaple of structural directives-->
+<hr/>
+<div *ngIf="isRedColor; else notred">
+    Yes, the color is red.
+</div>
+<ng-template #notred>
+    Color is not red.
+</ng-template>
+
+<hr/>
+<button type="button" class="btn btn-warning" (click)="toggleForm()">Toggle Heading</button>
+<div *ngIf="show"> 
+    <h2>Show or hide this div</h2>
+</div>
+
+
+<hr/>
+<div class="container">
+  <table class="table table-striped table-bordered table-hover">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Birth Date</th>
+      <th>SSN</th>
+      <th>Salary</th>
+      <th>Index</th>
+      <th>Is First</th>
+      <th>Is Last</th>
+      <th>Is even</th>
+      <th>Count</th>
+    </tr >
+    <tr *ngFor="let e of employees; index as i; first as f; last as l; even as ev; count as c">
+      <td>{{e.id}}</td>
+      <td>{{e.name | titlecase}}</td>
+      <td>{{e.dob | age}}</td>
+      <td>{{e.ssn | ssn}}</td>
+      <td>{{e.salary | currency:'USD'}}</td>
+      <td>{{i}}</td>
+      <td>{{f}}</td>
+      <td>{{l}}</td>
+      <td>{{ev}}</td>
+      <td>{{c}}</td>
+    </tr>
+  </table>
+</div>
+
+
+Select any employee
+<select>
+  <option *ngFor="let e of employees"> {{e.name | titlecase}}
+
+  </option>
+</select>
+
+
+
+<router-outlet></router-outlet>
+<!--it will call other url-->
